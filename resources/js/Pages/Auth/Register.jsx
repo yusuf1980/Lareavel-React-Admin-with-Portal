@@ -1,117 +1,140 @@
 import { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 export default function Register() {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-    });
+  const { data, setData, post, processing, errors, reset } = useForm({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+  });
 
-    useEffect(() => {
-        return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
-
-    const submit = (e) => {
-        e.preventDefault();
-
-        post(route('register'));
+  useEffect(() => {
+    return () => {
+      reset('password', 'password_confirmation');
     };
+  }, []);
 
-    return (
-        <GuestLayout>
-            <Head title="Register" />
+  const submit = (e) => {
+    e.preventDefault();
 
-            <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
+    post(route('register'));
+  };
 
-                    <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name}
-                        className="mt-1 block w-full"
-                        autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
+  return (
+    <div className='app app-signup p-0'>
+      <div className="row g-0 app-auth-wrapper">
+        <div className="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
+          <div className="d-flex flex-column align-content-end">
+            <div className="app-auth-body mx-auto">
+              <div className="app-auth-branding mb-4">
+                <a className="app-logo" href="index.html">
+                  <img className="logo-icon me-2" src="/images/app-logo.svg" alt="logo" />
+                </a>
+              </div>
+              <h2 className="auth-heading text-center mb-5">Sign up to Portal</h2>
+              <div className="auth-form-container text-start">
+                {(errors.email || errors.name || errors.password) && (
+                  <div className="alert alert-danger" role="alert">
+                    {errors.name ? errors.name : ''}
+                    {errors.email ? errors.email : ''}
+                    {errors.password ? errors.password : ''} <br />
+                    </div>
+                )}
+                <form className="auth-form login-form" onSubmit={submit}>
+                  <div className="email mb-3">
+                    <label className="sr-only">Your Name</label>
+                    <input
+                      name="signup-name"
+                      type="text"
+                      className="form-control signup-name"
+                      placeholder="Full name"
+                      required="required"
+                      value={data.name}
+                      autoComplete="name"
+                      onChange={(e) => setData('name', e.target.value)}
                     />
-
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
+                  </div>
+                  <div className="email mb-3">
+                    <label className="sr-only" >Email</label>
+                    <input name="email"
+                      type="email"
+                      className="form-control signin-email"
+                      placeholder="Email address"
+                      required="required"
+                      value={data.email}
+                      onChange={(e) => setData('email', e.target.value)}
                     />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
+                  </div>
+                  <div className="password mb-3">
+                    <label className="sr-only">Password</label>
+                    <input name="password"
+                      type="password"
+                      className="form-control signin-password"
+                      placeholder="Password"
+                      required="required"
+                      value={data.password}
+                      onChange={(e) => setData('password', e.target.value)}
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                        required
+                  </div>
+                  <div className="password mb-3">
+                    <label className="sr-only">Password</label>
+                    <input name="password_confirmation"
+                      type="password"
+                      className="form-control signin-password"
+                      placeholder="Repeat password"
+                      required="required"
+                      autoComplete="new-password"
+                      value={data.password_confirmation}
+                      onChange={(e) => setData('password_confirmation', e.target.value)}
                     />
+                  </div>
+                  <div className="extra mb-3">
+                    <div className="form-check">
+                      <input className="form-check-input" type="checkbox" value="" id="RememberPassword" />
+                      <label className="form-check-label">
+                        I agree to Portal's <a href="#" class="app-link">Terms of Service</a> and <a href="#" class="app-link">Privacy Policy</a>.
+                      </label>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <button type="submit" className="btn app-btn-primary w-100 theme-btn mx-auto" disabled={processing}>Sign Up</button>
+                  </div>
+                </form>
 
-                    <InputError message={errors.password_confirmation} className="mt-2" />
+                <div className="auth-option text-center pt-2">Already have an account?
+                  <Link className="text-link mx-1" href={route("login")}>
+                    Log in
+                  </Link>.
                 </div>
+              </div>
 
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Already registered?
-                    </Link>
+            </div>
 
-                    <PrimaryButton className="ml-4" disabled={processing}>
-                        Register
-                    </PrimaryButton>
-                </div>
-            </form>
-        </GuestLayout>
-    );
+            <footer className="app-auth-footer">
+              <div className="container text-center py-3">
+                <small className="copyright">Designed with <span className="sr-only">love</span><FontAwesomeIcon icon={faHeart} color='#fb866a' /> by <a className="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+              </div>
+            </footer>
+          </div>
+        </div>
+        <div className="col-12 col-md-5 col-lg-6 h-100 auth-background-col">
+          <div className="auth-background-holder">
+          </div>
+          <div className="auth-background-mask"></div>
+          <div className="auth-background-overlay p-3 p-lg-5">
+            <div className="d-flex flex-column align-content-end h-100">
+              <div className="h-100"></div>
+              <div className="overlay-content p-3 p-lg-4 rounded">
+                <h5 className="mb-3 overlay-title">Explore Portal Admin Template</h5>
+                <div>Portal is a free Bootstrap 5 admin dashboard template. You can download and view the template license <a href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">here</a>.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

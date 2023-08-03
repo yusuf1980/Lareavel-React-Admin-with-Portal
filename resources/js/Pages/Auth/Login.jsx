@@ -1,11 +1,5 @@
 import { useEffect } from 'react';
-// import Checkbox from '@/Components/Checkbox';
-// import GuestLayout from '@/Layouts/GuestLayout';
-// import InputError from '@/Components/InputError';
-// import InputLabel from '@/Components/InputLabel';
-// import PrimaryButton from '@/Components/PrimaryButton';
-// import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
@@ -29,72 +23,6 @@ export default function Login({ status, canResetPassword }) {
   };
 
   return (
-    // <GuestLayout>
-    //     <Head title="Log in" />
-
-    //     {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
-
-    //     <form onSubmit={submit}>
-    //         <div>
-    //             <InputLabel htmlFor="email" value="Email" />
-
-    //             <TextInput
-    //                 id="email"
-    //                 type="email"
-    //                 name="email"
-    //                 value={data.email}
-    //                 className="mt-1 block w-full"
-    //                 autoComplete="username"
-    //                 isFocused={true}
-    //                 onChange={(e) => setData('email', e.target.value)}
-    //             />
-
-    //             <InputError message={errors.email} className="mt-2" />
-    //         </div>
-
-    //         <div className="mt-4">
-    //             <InputLabel htmlFor="password" value="Password" />
-
-    //             <TextInput
-    //                 id="password"
-    //                 type="password"
-    //                 name="password"
-    //                 value={data.password}
-    //                 className="mt-1 block w-full"
-    //                 autoComplete="current-password"
-    //                 onChange={(e) => setData('password', e.target.value)}
-    //             />
-
-    //             <InputError message={errors.password} className="mt-2" />
-    //         </div>
-
-    //         <div className="block mt-4">
-    //             <label className="flex items-center">
-    //                 <Checkbox
-    //                     name="remember"
-    //                     checked={data.remember}
-    //                     onChange={(e) => setData('remember', e.target.checked)}
-    //                 />
-    //                 <span className="ml-2 text-sm text-gray-600">Remember me</span>
-    //             </label>
-    //         </div>
-
-    //         <div className="flex items-center justify-end mt-4">
-    //             {canResetPassword && (
-    //                 <Link
-    //                     href={route('password.request')}
-    //                     className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-    //                 >
-    //                     Forgot your password?
-    //                 </Link>
-    //             )}
-
-    //             <PrimaryButton className="ml-4" disabled={processing}>
-    //                 Log in
-    //             </PrimaryButton>
-    //         </div>
-    //     </form>
-    // </GuestLayout>
     <div className='app app-login p-0'>
       <div className="row g-0 app-auth-wrapper">
         <div className="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
@@ -107,11 +35,11 @@ export default function Login({ status, canResetPassword }) {
               </div>
               <h2 className="auth-heading text-center mb-5">Log in to Portal</h2>
               <div className="auth-form-container text-start">
-              {errors.email && (
-                <div class="alert alert-danger" role="alert">
-                  {errors.email}
-                </div>
-              )}
+                {errors.email && (
+                  <div class="alert alert-danger" role="alert">
+                    {errors.email}
+                  </div>
+                )}
                 <form className="auth-form login-form" onSubmit={submit}>
                   <div className="email mb-3">
                     <label className="sr-only" >Email</label>
@@ -137,7 +65,12 @@ export default function Login({ status, canResetPassword }) {
                     <div className="extra mt-3 row justify-content-between">
                       <div className="col-6">
                         <div className="form-check">
-                          <input className="form-check-input" type="checkbox" value=""></input>
+                          <input className="form-check-input"
+                            type="checkbox"
+                            name="remember"
+                            checked={data.remember}
+                            onChange={(e) => setData('remember', e.target.checked)}
+                          />
                           <label className="form-check-label" >
                             Remember me
                           </label>
@@ -145,17 +78,28 @@ export default function Login({ status, canResetPassword }) {
                       </div>
                       <div className="col-6">
                         <div className="forgot-password text-end">
-                          <a href="reset-password.html">Forgot password?</a>
+                          {canResetPassword && (
+                            <Link
+                              href={route('password.request')}
+                            >
+                              Forgot your password?
+                            </Link>
+                          )}
+                          {/* <a href="reset-password.html">Forgot password?</a> */}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="text-center">
-                    <button type="submit" className="btn app-btn-primary w-100 theme-btn mx-auto">Log In</button>
+                    <button type="submit" className="btn app-btn-primary w-100 theme-btn mx-auto" disabled={processing}>Log In</button>
                   </div>
                 </form>
 
-                <div className="auth-option text-center pt-5">No Account? Sign up <a className="text-link" href="signup.html" >here</a>.</div>
+                <div className="auth-option text-center pt-5">No Account? Sign up
+                  <Link className="text-link mx-1" href={route("register")}>
+                    here
+                  </Link>.
+                </div>
               </div>
 
             </div>
