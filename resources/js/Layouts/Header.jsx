@@ -26,7 +26,7 @@ function Header({ user }) {
                   <ul className="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                     <li><Link className="dropdown-item" href={route('profile.edit')}>Profile</Link></li>
                     <li><hr className="dropdown-divider" /></li>
-                    <li><Link method="post" className="dropdown-item" href={route('logout')}>Log Out</Link></li>
+                    <li><Link method="post" className="dropdown-item" href={route('logout')} as="button">Log Out</Link></li>
                   </ul>
                 </div>
               </div>
@@ -39,12 +39,12 @@ function Header({ user }) {
         <div className="sidepanel-inner d-flex flex-column">
           <a href="#" id="sidepanel-close" className="sidepanel-close d-xl-none">&times;</a>
           <div className="app-branding">
-            <a className="app-logo" href="index.html"><img className="logo-icon me-2" src="images/app-logo.svg" alt="logo" /><span className="logo-text">PORTAL</span></a>
+            <Link className="app-logo" href={route('dashboard')}><img className="logo-icon me-2" src="images/app-logo.svg" alt="logo" /><span className="logo-text">PORTAL</span></Link>
           </div>
           <nav id="app-nav-main" className="app-nav app-nav-main flex-grow-1">
             <ul className="app-menu list-unstyled accordion" id="menu-accordion">
               <li className="nav-item">
-                <a className="nav-link active" href="index.html">
+                <Link className="nav-link active" href={route('dashboard')}>
                   <span className="nav-icon">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                       <path fillRule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z" />
@@ -52,7 +52,7 @@ function Header({ user }) {
                     </svg>
                   </span>
                   <span className="nav-link-text">Dashboard</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

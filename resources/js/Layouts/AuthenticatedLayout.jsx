@@ -124,7 +124,7 @@ export default function Authenticated({ user, header, children }) {
 
     //     <main>{children}</main>
     // </div>
-    <>
+    <div className="app">
       <Header user={user} />
       <div className="app-wrapper">
         <div className="app-content pt-3 p-md-3 p-lg-4">
@@ -138,6 +138,6 @@ export default function Authenticated({ user, header, children }) {
           </div>
         </footer>
       </div>
-    </>
+    </div>
   );
 }
