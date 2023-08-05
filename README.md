@@ -7,7 +7,7 @@
 
 ## Laravel Breeze React.js Admin with Portal Template
 
-[Read More and Template Licency](https://themes.3rdwavemedia.com/bootstrap-templates/product/devbook-free-bootstrap-5-book-ebook-landing-page-template-for-developers/)
+[Read More and Template License](https://themes.3rdwavemedia.com/bootstrap-templates/product/devbook-free-bootstrap-5-book-ebook-landing-page-template-for-developers/)
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
