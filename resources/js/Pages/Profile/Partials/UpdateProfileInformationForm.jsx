@@ -1,8 +1,4 @@
-// import InputError from '@/Components/InputError';
-// import InputLabel from '@/Components/InputLabel';
-// import PrimaryButton from '@/Components/PrimaryButton';
-// import TextInput from '@/Components/TextInput';
-import { Link, useForm, usePage } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
 export default function UpdateProfileInformation({ mustVerifyEmail, status, className = '' }) {
@@ -17,9 +13,6 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     e.preventDefault();
 
     patch(route('profile.update'));
-
-    // e.target.classList.add('was-validated')
-
   };
 
   return (

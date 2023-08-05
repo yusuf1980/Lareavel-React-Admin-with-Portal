@@ -1,15 +1,12 @@
-import { useRef, useState } from 'react';
-import DangerButton from '@/Components/DangerButton';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import Modal from '@/Components/Modal';
-import SecondaryButton from '@/Components/SecondaryButton';
-import TextInput from '@/Components/TextInput';
+import { useRef, useState, useEffect } from 'react';
 import { useForm } from '@inertiajs/react';
+import { Modal } from 'bootstrap';
 
 export default function DeleteUserForm({ className = '' }) {
   const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
   const passwordInput = useRef();
+  const [modal, setModal] = useState(null)
+  const deleteModal = useRef()
 
   const {
     data,
@@ -22,8 +19,15 @@ export default function DeleteUserForm({ className = '' }) {
     password: '',
   });
 
+  useEffect(() => {
+    setModal(
+      new Modal(deleteModal.current)
+    )
+  }, [])
+
   const confirmUserDeletion = () => {
     setConfirmingUserDeletion(true);
+    modal.show
   };
 
   const deleteUser = (e) => {
@@ -108,26 +112,49 @@ export default function DeleteUserForm({ className = '' }) {
           <p>
             Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
           </p>
-          <button onClick={confirmUserDeletion} className="btn btn-danger mb-3">DELETE ACCOUNT</button>
-          {/* <div className="modal" show={confirmingUserDeletion} onClose={closeModal}>
+          <button onClick={() => modal.show} className="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#deleteModal">DELETE ACCOUNT</button>
+
+          <div className="modal" id="deleteModal" tabIndex="-1" ref={deleteModal} aria-labelledby="deleteModal" aria-hidden="false">
             <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Modal title</h5>
-                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <form onSubmit={deleteUser}>
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Delete Account</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div className="modal-body">
+
+                    <h2>Are you sure you want to delete your account?</h2>
+                    <p className="mt-1 text-sm text-gray-600">
+                      Once your account is deleted, all of its resources and data will be permanently deleted. Please
+                      enter your password to confirm you would like to permanently delete your account.
+                    </p>
+                    <div className='mt-6'>
+                      <input
+                        type="password"
+                        className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                        name="password"
+                        ref={passwordInput}
+                        value={data.password}
+                        onChange={(e) => setData('password', e.target.value)}
+                        placeholder="Password"
+                        required
+                      />
+                      <div className="invalid-feedback">
+                        {errors.password}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" className="btn btn-danger" disabled={processing}>Delete Account</button>
+                  </div>
                 </div>
-                <div className="modal-body">
-                  <p>Modal body text goes here.</p>
-                </div>
-                <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" className="btn btn-primary">Save changes</button>
-                </div>
-              </div>
+              </form>
             </div>
-          </div> */}
+          </div>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
