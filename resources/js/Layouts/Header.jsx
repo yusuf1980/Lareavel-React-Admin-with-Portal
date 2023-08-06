@@ -1,6 +1,58 @@
 import { Link } from "@inertiajs/react"
+// import TemplateJs from "@/template"
+import { useEffect } from "react"
 
 function Header({ user }) {
+    function responsiveSidePanel(sidePanel) {
+      let w = window.innerWidth;
+      if (w >= 1200) {
+        // if larger
+        //console.log('larger');
+        sidePanel.classList.remove('sidepanel-hidden');
+        sidePanel.classList.add('sidepanel-visible');
+
+      } else {
+        // if smaller
+        //console.log('smaller');
+        sidePanel.classList.remove('sidepanel-visible');
+        sidePanel.classList.add('sidepanel-hidden');
+      }
+    };
+    useEffect(() => {
+      const sidePanel = document.getElementById('app-sidepanel');
+
+      window.addEventListener('load', function () {
+        responsiveSidePanel(sidePanel);
+      });
+
+      window.addEventListener('resize', function () {
+        responsiveSidePanel(sidePanel);
+      });
+    }, [responsiveSidePanel])
+
+  function handlerToggle(e) {
+    e.preventDefault
+    const sidePanelToggler = document.getElementById('sidepanel-toggler');
+    const sidePanel = document.getElementById('app-sidepanel');
+    const sidePanelDrop = document.getElementById('sidepanel-drop');
+    const sidePanelClose = document.getElementById('sidepanel-close');
+    if (sidePanel.classList.contains('sidepanel-visible')) {
+      sidePanel.classList.remove('sidepanel-visible');
+      sidePanel.classList.add('sidepanel-hidden');
+
+    } else {
+      sidePanel.classList.remove('sidepanel-hidden');
+      sidePanel.classList.add('sidepanel-visible');
+    }
+    sidePanelClose.addEventListener('click', () => {
+      sidePanelToggler.click();
+    });
+
+    sidePanelDrop.addEventListener('click', (e) => {
+      sidePanelToggler.click();
+    });
+  }
+
   return (
     <header className="app-header fixed-top">
       <div className="app-header-inner">
@@ -8,7 +60,10 @@ function Header({ user }) {
           <div className="app-header-content">
             <div className="row justify-content-between align-items-center">
               <div className="col-auto">
-                <a id="sidepanel-toggler" className="sidepanel-toggler d-inline-block d-xl-none" href="#">
+                <a id="sidepanel-toggler"
+                  onClick={handlerToggle}
+                  className="sidepanel-toggler d-inline-block d-xl-none"
+                  href="#">
                   <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" role="img"><title>Menu</title><path stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="2" d="M4 7h22M4 15h22M4 23h22"></path></svg>
                 </a>
               </div>

@@ -36,7 +36,7 @@ export default function Login({ status, canResetPassword }) {
               <h2 className="auth-heading text-center mb-5">Log in to Portal</h2>
               <div className="auth-form-container text-start">
                 {errors.email && (
-                  <div class="alert alert-danger" role="alert">
+                  <div className="alert alert-danger" role="alert">
                     {errors.email}
                   </div>
                 )}
